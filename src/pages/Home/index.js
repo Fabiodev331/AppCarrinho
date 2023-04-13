@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList } from "react-native";
 
 import { Feather } from '@expo/vector-icons';
+import { useNavigation } from "@react-navigation/native";
+import Product from "../../components/Product";
+import { CartContext } from "../../contexts/CartContext";
 
 export default function Home(){
-    const [] = useState([
+    const { cart } = useContext(CartContext);
+    const navigation = useNavigation();
+    const [products, setProducts] = useState([
         {
             id: '1',
             name: 'Coca cola',
@@ -38,14 +43,26 @@ export default function Home(){
             <View style={styles.cartContent} >
                 <Text style={styles.title} >Lista de produtos</Text>
 
-                <TouchableOpacity style={styles.cartButton} >
+                <TouchableOpacity 
+                style={styles.cartButton} 
+                onPress={() => navigation.navigate('Cart') }
+                >
                     <View style={styles.dot} >
-                        <Text style={styles.dotText} >5</Text>
+                        <Text style={styles.dotText} >
+                            {cart?.length}
+                        </Text>
                     </View>
 
                     <Feather name="shopping-cart" size={30} color='#000' />
                 </TouchableOpacity>
             </View>
+
+            <FlatList
+                style={styles.list}
+                data={products}
+                keyExtractor={ (item) => String(item.id) }
+                renderItem={ ({item}) => <Product data={item} /> }
+            />
         </SafeAreaView>
     )
 }
@@ -63,8 +80,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginTop: 24,
         marginBottom: 24,
-        marginLeft: 10,
-        marginRight: 10
     },
     title:{
         color: '#000',
@@ -74,7 +89,7 @@ const styles = StyleSheet.create({
     dot:{
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'blue',
+        backgroundColor: '#168FFF',
         width: 20,
         height: 20,
         borderRadius: 10,
@@ -85,7 +100,7 @@ const styles = StyleSheet.create({
     },
     dotText:{
         color: '#121212',
-        fontSize: 11,
+        fontSize: 11
     },
     cartButton:{
         

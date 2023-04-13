@@ -10,6 +10,8 @@ export default function Cart(){
 
 const styles = StyleSheet.create({
     Container:{
-        flex:1
+        flex:1,
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 })
