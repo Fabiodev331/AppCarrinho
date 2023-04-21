@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     },
     textCart:{
         fontSize: 16,
-        marginTop: 5
+        marginTop: 5,
+        marginBottom: 30
     }
 })

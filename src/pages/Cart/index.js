@@ -6,7 +6,7 @@ import CartItem from "../../components/CartItem";
 import EmpytCart from "../../components/EmptyCart";
 
 export default function Cart(){
-    const { cart, addItemCart, removeItemCart } = useContext(CartContext);
+    const { cart, addItemCart, removeItemCart, total } = useContext(CartContext);
 
     return(
         <View style={styles.Container}>
@@ -18,9 +18,11 @@ export default function Cart(){
                 ListEmptyComponent={() => <EmpytCart/> }
                 renderItem={({item}) => (
                 <CartItem data={item} 
-                addAmount={() => addItemCart(item)} 
-                removeAmount={() => removeItemCart(item)}
-                />) }
+                    addAmount={() => addItemCart(item)} 
+                    removeAmount={() => removeItemCart(item)}
+                    />
+                )}
+                ListFooterComponent={() => <Text style={styles.total}>Total: R$ {total}</Text>}
             />
 
         </View>
@@ -35,5 +37,9 @@ const styles = StyleSheet.create({
         paddingStart: 14,
         paddingTop: 14
     },
-
+    total:{
+        fontSize: 17,
+        fontWeight: 'bold',
+        marginBottom: 24
+    }
 })
